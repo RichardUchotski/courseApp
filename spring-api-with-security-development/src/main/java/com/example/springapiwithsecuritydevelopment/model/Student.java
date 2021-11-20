@@ -1,9 +1,6 @@
 package com.example.springapiwithsecuritydevelopment.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import jdk.jfr.Name;
 import lombok.Getter;
 import lombok.Setter;
@@ -56,6 +53,8 @@ public class Student {
     )
     @JsonIgnoreProperties("studentList")
     @NotNull @JsonManagedReference // ? we are showing in the API response, what courses the students are one
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,  property = "id") // ? Serializes the property by the ID
+    @JsonIdentityReference(alwaysAsId = true) // ? This makes the property only return the id in the API
     // TODO: need to get this down to just the course name and id
     private List<Course> courseList;
 

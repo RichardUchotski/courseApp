@@ -1,8 +1,6 @@
 package com.example.springapiwithsecuritydevelopment.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,6 +38,8 @@ public class Teacher {
     @JsonIgnoreProperties("teacherList")
     @NotNull // TODO: Check this out later, as it may stop the front end from adding a teacher to a course, maybe do not have this now, or work out how to get this down
     @JsonManagedReference // ? Currently, shows the courses a teacher runs in the API response List
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,  property = "id") // ? Serializes the property by the ID
+    @JsonIdentityReference(alwaysAsId = true) // ? This makes the property only return the id in the API
     private List<Course> courseList;
 
     // Adding constructors
