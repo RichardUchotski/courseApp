@@ -2,6 +2,7 @@ package com.example.springapiwithsecuritydevelopment.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jdk.jfr.Name;
 import lombok.Getter;
@@ -54,7 +55,8 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id", nullable = false)
     )
     @JsonIgnoreProperties("studentList")
-    @NotNull
+    @NotNull @JsonManagedReference // ? we are showing in the API response, what courses the students are one
+    // TODO: need to get this down to just the course name and id
     private List<Course> courseList;
 
     // Adding constructors

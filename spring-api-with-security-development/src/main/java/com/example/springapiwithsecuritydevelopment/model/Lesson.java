@@ -2,6 +2,7 @@ package com.example.springapiwithsecuritydevelopment.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,6 +32,8 @@ public class Lesson {
     @JoinColumn(name = "course_id")
     @JsonIgnoreProperties("lessonList")
     @NotNull
+    @JsonManagedReference // ? Here, the Course is serialized, so you know what course a lesson is on
+    // TODO: to get the serialization down to just the course name and Id
     private Course course;
 
     // ? Adding constructors

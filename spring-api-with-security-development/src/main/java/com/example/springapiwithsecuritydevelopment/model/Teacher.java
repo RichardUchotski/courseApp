@@ -38,8 +38,8 @@ public class Teacher {
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
     @JsonIgnoreProperties("teacherList")
-    @NotNull // TODO: Check this out later, as it may stop the front end from adding a teacher to a course, maybe do not have this now
-    @JsonManagedReference
+    @NotNull // TODO: Check this out later, as it may stop the front end from adding a teacher to a course, maybe do not have this now, or work out how to get this down
+    @JsonManagedReference // ? Currently, shows the courses a teacher runs in the API response List
     private List<Course> courseList;
 
     // Adding constructors

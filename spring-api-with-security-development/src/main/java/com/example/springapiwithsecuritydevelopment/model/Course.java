@@ -35,14 +35,14 @@ public class Course {
     // Both side of this cascade are merge to prevent the detached entity error.html
     @OneToMany(mappedBy = "course", cascade = CascadeType.MERGE, orphanRemoval = true)
     @JsonIgnoreProperties("course")
-    @JsonBackReference
+    @JsonBackReference // ? Not Serializing (converting to JSON) the lesson list, so it does not show up on the course API response
     private List<Lesson> lessonList;
 
     // ! non-owning side of the relationship cannot be added in the api client on the student class as a field for this class
     // Many courses to many Students (non owning side - when deleted foreign key needs to be deleted or removed by helper method)
     @ManyToMany(mappedBy = "courseList", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JsonIgnoreProperties("courseList")
-    @JsonBackReference
+    @JsonBackReference // ? Not Serializing (converting to JSON) the student list, so it does not show up on the JSON response
     private List<Student> studentList;
 
     // * Owning side of the relationship, can be added to the API as a field from the API client for this class
@@ -51,14 +51,14 @@ public class Course {
     @JoinColumn(name = "subject_id")
     @JsonIgnoreProperties("courseList")
     @NotNull
-    @JsonManagedReference
+    @JsonManagedReference // ? This means we are serializing this field, so it shows up in the API json response
     private Subject subject;
 
     // ! non-owning side of the relationship cannot be added in the api client on the student class as a field for this class
     // ManyCourses to Many Teachers (non owning side - when deleted foreign key needs to be deleted or removed by helper method)
     @ManyToMany(mappedBy = "courseList", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JsonIgnoreProperties("courseList")
-    @JsonBackReference
+    @JsonBackReference // ? We are not serializing the teacher list, so it does not show up in the API response
     private List<Teacher> teacherList;
 
     // Adding constructors

@@ -2,6 +2,7 @@ package com.example.springapiwithsecuritydevelopment.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,6 +29,7 @@ public class Subject {
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}
     )
     @JsonIgnoreProperties("subject")
+    @JsonBackReference // ? Not showing the courses that the subject is on in the API response
     List<Course> courseList;
 
     //  ?When run, this will go through the courseList and set every subject to null
@@ -36,7 +38,7 @@ public class Subject {
         for (Course c : courseList) {
             c.setSubject(null);
         }
-    }git
+    }
 
     // ? Adding constructors
     public Subject() {
